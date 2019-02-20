@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index.hbs should compile 1`] = `
+"## Index
+
+### Variables
+
+* [amount]([relativeURL])
+* [color]([relativeURL])
+* [isDone]([relativeURL])
+* [numbers]([relativeURL])"
+`;

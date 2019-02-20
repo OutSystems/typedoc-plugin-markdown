@@ -1,0 +1,7 @@
+**{{memberSymbol this.kindString}}{{ name }}**: 
+
+{{~#if isOptional}}?{{/if~}}
+
+{{~#if type}} {{#with type}}*{{>type}}*{{/with}}{{/if~}}
+
+{{~#if defaultValue}} ={{{defaultValue}}}{{/if~}}

@@ -1,4 +1,4 @@
-import { Application } from 'typedoc/dist/lib/application';
+import { Application } from 'typedoc';
 import { ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
 import { MarkdownPlugin } from './plugin';
 
@@ -9,9 +9,6 @@ module.exports = (PluginHost: Application) => {
     return;
   }
 
-  /**
-   * Expose additional options for consumption.
-   */
   app.options.addDeclaration({
     component: 'markdown',
     help: 'Markdown Plugin: Suppress file sources from output.',
@@ -44,8 +41,5 @@ module.exports = (PluginHost: Application) => {
     type: ParameterType.String,
   });
 
-  /**
-   * Add the plugin to the converter instance
-   */
   app.converter.addComponent('markdown', new MarkdownPlugin(app.converter));
 };

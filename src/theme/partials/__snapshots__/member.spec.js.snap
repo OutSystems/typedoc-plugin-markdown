@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`member.hbs should compile with delcaration 1`] = `
+"[member.title]
+
+[member.declaration]
+
+___"
+`;
+
+exports[`member.hbs should compile with getter setter 1`] = `
+"[member.title]
+
+[member.getterSetter]
+
+___"
+`;
+
+exports[`member.hbs should compile with signature 1`] = `
+"[member.title]
+
+[member.signatures]
+
+___"
+`;

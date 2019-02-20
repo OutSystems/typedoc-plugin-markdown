@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reflection.hbs should compile 1`] = `
+"[typedoc-plugin-markdown](../README.md)[breadcrumb]
+
+# External module: Reflection name
+
+[comment]
+
+## Type parameters
+
+[typeParameters]
+
+## Hierarchy
+
+[hierarchy]
+
+## Implements
+
+* [type]
+* [type]
+
+## Implemented by
+
+* [type]
+* [type]
+
+## Callable
+
+[member.signatures]
+
+## Indexable
+
+[member.indexSignatures]
+
+[index]
+[members]"
+`;

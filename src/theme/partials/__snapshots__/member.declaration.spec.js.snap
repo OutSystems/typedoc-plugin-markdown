@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`member.declaration.hbs should compile 1`] = `
+"[member.declaration.title]
+[member.sources]
+[comment]"
+`;
+
+exports[`member.declaration.hbs should compile with type declarations 1`] = `
+"[member.declaration.title]
+[member.sources]
+[comment]
+
+#### Type declaration
+
+[parameter]"
+`;

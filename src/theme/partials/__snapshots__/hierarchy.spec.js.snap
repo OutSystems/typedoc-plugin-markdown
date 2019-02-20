@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hierachy.hbs should compile 1`] = `"↳ [type]"`;

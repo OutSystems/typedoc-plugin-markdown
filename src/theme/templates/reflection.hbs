@@ -1,10 +1,10 @@
-{{> header}}
+{{#ifDisplayHeader settings}}
 
-{{#if model.displayReadme}}
+[{{project.name}}](../README.md){{#with model}}{{> breadcrumb}}{{/with}}
 
-{{#getMarkdownFromHtml}}{{#markdown}}{{{model.readme}}}{{/markdown}}{{/getMarkdownFromHtml}}
+# {{model.kindString }}: {{{ model.name }}}
 
-{{/if}}
+{{/ifDisplayHeader}}
 
 {{#with model}}
 
@@ -18,7 +18,7 @@
 
 {{#if model.typeParameters}}
 
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Type parameters
+{{heading '##' settings}} Type parameters
 
 {{#with model}}{{> typeParameters}}{{/with}}
 
@@ -26,7 +26,7 @@
 
 {{#if model.typeHierarchy}}
 
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Hierarchy
+{{heading '##' settings}} Hierarchy
 
 {{#with model.typeHierarchy~}}{{> hierarchy}}{{/with}}
 
@@ -34,7 +34,7 @@
 
 {{#if model.implementedTypes}}
 
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Implements
+{{heading '##' settings}} Implements
 
 {{#each model.implementedTypes}}
 * {{> type}}
@@ -44,7 +44,7 @@
 
 {{#if model.implementedBy}}
 
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Implemented by
+{{heading '##' settings}} Implemented by
 
 {{#each model.implementedBy}}
 * {{> type}}
@@ -54,7 +54,7 @@
 
 {{#if model.signatures}}
 
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Callable
+{{{heading '##' settings}}} Callable
 
 {{#with model}}{{> member.signatures}}{{/with}}
 
@@ -62,7 +62,7 @@
 
 {{#if model.indexSignature}}
 
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Indexable
+{{heading '##' settings}} Indexable
 
 {{#with model}}{{> member.indexSignatures}}{{/with}}
 
@@ -70,10 +70,7 @@
 
 {{#with model}}
 
-{{#ifDisplayIndex this}}
 {{> index}}
-
-{{/ifDisplayIndex}}
 
 {{> members}}
 

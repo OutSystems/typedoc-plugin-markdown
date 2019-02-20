@@ -1,12 +1,17 @@
-**{{getMemberSymbol this.kindString}}{{ name }}**: {{#if isOptional}}?{{/if}}{{#if type}}*{{#with type}}{{>type}}{{/with}}*{{/if}}{{#if defaultValue}} = {{{ defaultValue}}}{{/if}}
+{{> member.declaration.title}}
 
-{{ compileSources this}}
+{{> member.sources}}
 
 {{> comment}}
 
-{{~#if type.declaration~}}
+{{#if type.declaration}}
+
 #### Type declaration
-{{~#with type.declaration~}}
+
+{{#with type.declaration}}
+
 {{> parameter}}
-{{~/with~}}
-{{~/if~}}
+
+{{/with}}
+
+{{/if}}

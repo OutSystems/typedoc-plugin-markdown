@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`member.declaration.title.hbs should compile 1`] = `"**● numbers**: *[type]* = [1, 2, 3]"`;

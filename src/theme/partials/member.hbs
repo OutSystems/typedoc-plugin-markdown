@@ -1,23 +1,39 @@
-{{{getAnchor anchor}}}
-
 {{#if name}}
-{{#getMemberHeadingLevel this}}{{/getMemberHeadingLevel}} {{#each flags}}`<{{this}}>`{{/each}} {{name}}
+
+{{> member.title}}
+
 {{/if}}
 
 {{#if signatures}}
+
 {{> member.signatures}}
-{{else}}{{#if hasGetterOrSetter}}
-{{> member.getterSetter}}
+
 {{else}}
+
+{{#if hasGetterOrSetter}}
+
+{{> member.getterSetter}}
+
+{{else}}
+
 {{> member.declaration}}
-{{/if}}{{/if}}
+
+{{/if}}
+
+{{/if}}
 
 {{#each groups}}
+
 {{#each children}}
+
 {{#unless hasOwnDocument}}
+
 {{> member}}
+
 {{/unless}}
+
 {{/each}}
+
 {{/each}}
 
 ___

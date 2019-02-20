@@ -1,7 +1,11 @@
-{{#getMemberGroupHeadingLevel}}{{/getMemberGroupHeadingLevel}} {{title}}
+{{heading '##'}} {{title}}
 
 {{#each children}}
+
 {{#unless hasOwnDocument}}
+
 {{> member}}
+
 {{/unless}}
+
 {{/each}}

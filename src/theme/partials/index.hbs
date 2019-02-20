@@ -1,19 +1,15 @@
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Index
+{{heading '##' args}} Index
 
 {{#if groups}}
+
 {{#each groups}}
-{{#ifGroupContainesVisibleItems this }}
+
 ### {{title}}
 
 {{#each children}}
-{{#ifDisplayIndexItem this }}
 * [{{{name}}}]({{relativeURL url}})
-{{/ifDisplayIndexItem}}
 {{/each}}
-{{getNewLine}}
-{{/ifGroupContainesVisibleItems}}
+
 {{/each}}
+
 {{/if}}
-
----
-

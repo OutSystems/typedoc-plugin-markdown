@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`member.title.hbs should compile 1`] = `"### member"`;
+
+exports[`member.title.hbs should compile with flags 1`] = `"### \`<Static>\` member"`;

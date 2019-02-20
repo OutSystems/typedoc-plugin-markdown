@@ -1,0 +1,15 @@
+{{#if model.displayReadme}}
+
+{{{model.readme}}}
+
+{{else}}
+
+# {{{ project.name }}}
+
+{{/if}}
+
+{{#with model}}
+
+{{> index}}
+
+{{/with}}

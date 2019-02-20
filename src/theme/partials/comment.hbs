@@ -1,20 +1,30 @@
+
 {{#with comment}}
+
 {{#if hasVisibleComponent}}
+
 {{#if shortText}}
 
-{{#getMarkdownFromHtml}}{{#markdown}}{{{shortText}}}{{/markdown}}{{/getMarkdownFromHtml}}
+{{{commentText shortText @root}}}
+
 {{/if}}
+
 {{#if text}}
 
-{{#getMarkdownFromHtml}}{{#markdown}}{{{text}}}{{/markdown}}{{/getMarkdownFromHtml}}
+{{{commentText text @root}}}
+
 {{/if}}
-{{~#if tags}}
+
+{{#if tags}}
 
 {{#each tags}}
-{{getCommentTag tagName text}} {{#getMarkdownFromHtml}}{{#markdown}}{{{text}}}{{/markdown}}{{/getMarkdownFromHtml}}
+
+*__{{tagName}}__*: {{{commentText text @root}}}
 
 {{/each}}
-{{~/if}}
 
 {{/if}}
+
+{{/if}}
+
 {{/with}}

@@ -1,29 +1,39 @@
 {{#if getSignature}}
+
 {{#with getSignature}}
-{{#compact}}
-get
-{{../name}}
-{{> member.signature.title hideName=true }}
-{{/compact}}
+
+get {{../name}} {{> member.signature.title hideName=true }}
+
 {{/with}}
+
 {{/if}}
+
 {{#if setSignature}}
+
 {{#with setSignature}}
-{{#compact}}
-set 
-{{../name}}
-{{> member.signature.title hideName=true }}
-{{/compact}}
+
+set {{../name}} {{> member.signature.title hideName=true }}
+
 {{/with}}
+
 {{/if}}
 
 {{#if getSignature}}
+
 {{#with getSignature}}
+
 {{> member.signature.body }}
+
 {{/with}}
+
 {{/if}}
+
 {{#if setSignature}}
+
 {{#with setSignature}}
+
 {{> member.signature.body }}
+
 {{/with}}
+
 {{/if}}

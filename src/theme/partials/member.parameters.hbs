@@ -1,4 +1,5 @@
 {{#if parameters}}
+
 **Parameters:**
 
 {{#ifHasTypeDeclarations parameters}}
@@ -10,22 +11,20 @@
 {{> comment}}
 
 {{#if type.declaration.children}}
-{{getParametersTableHeaders type.declaration.children}}
+
+{{parametersTableHeaders type.declaration.children}}
 {{#each type.declaration.children}}
-| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}} |{{/if}}{{/compact}}
+| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{{ strippedComment comment @root.settings }}} |{{/if}}{{/compact}}
 {{/each}}
 {{/if}}
-
 {{/each}}
-{{getNewLine}}{{getNewLine}}
 
 {{else}}
 
-{{getParametersTableHeaders parameters}}
+{{parametersTableHeaders parameters}}
 {{#each parameters}}
-| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}} |{{/if}}{{/compact}}
+| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{{ strippedComment comment @root.settings}}} |{{/if}}{{/compact}}
 {{/each}}
-{{getNewLine}}{{getNewLine}}
 
 {{/ifHasTypeDeclarations}}
 

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comment.hbs should compile with deprecation 1`] = `
+"Some deprecation
+
+*__deprecated__*: 
+\`\`\`typescript
+somethingElse();
+\`\`\`"
+`;
+
+exports[`comment.hbs should compile with tags 1`] = `
+"*__name__*: AbstractMetadataModule
+
+*__description__*: 
+Provides the module for the [[BaseClass]]
+\`\`\`json
+{
+ \\"declarations\\": [\\"AbstractMetadataComponent\\"],
+ \\"exports\\": [\\"AbstractMetadataComponent\\"],
+ \\"imports\\": [
+   \\"IonicModule\\",
+   \\"StackIonSelectModule\\"
+ ],
+ \\"providers\\": []
+}
+\`\`\`"
+`;
