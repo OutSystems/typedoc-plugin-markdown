@@ -47,12 +47,12 @@ export class MarkdownTheme extends DefaultTheme {
     if (this.application.options.getRawValues().markdownFlavor === 'gitbook') {
       const navigationChildren = this.getNavigation(project).children;
       if (navigationChildren) {
-        const navigation = navigationChildren.map(navigationItem => {
+        const navigation = navigationChildren.map((navigationItem) => {
           const dedicatedUrls = navigationItem.dedicatedUrls
-            ? navigationItem.dedicatedUrls.map(url => {
+            ? navigationItem.dedicatedUrls.map((url) => {
                 return {
                   title: () => {
-                    const urlMapping = urlMappings.find(item => {
+                    const urlMapping = urlMappings.find((item) => {
                       return item.url === url;
                     });
                     return urlMapping ? urlMapping.model.name : null;
@@ -64,7 +64,9 @@ export class MarkdownTheme extends DefaultTheme {
 
           return { ...navigationItem, dedicatedUrls };
         });
-        urlMappings.push(new UrlMapping('SUMMARY.md', { navigation }, 'summary.hbs'));
+        urlMappings.push(
+          new UrlMapping('SUMMARY.md', { navigation }, 'summary.hbs'),
+        );
       }
     }
     return urlMappings;
@@ -78,9 +80,10 @@ export class MarkdownTheme extends DefaultTheme {
 
     if (mapping) {
       if (!reflection.url || !DefaultTheme.URL_PREFIX.test(reflection.url)) {
-        const url = [mapping.directory, DefaultTheme.getUrl(reflection) + '.md'].join(
-          '/',
-        );
+        const url = [
+          mapping.directory,
+          DefaultTheme.getUrl(reflection) + '.md',
+        ].join('/');
         urls.push(new UrlMapping(url, reflection, mapping.template));
         reflection.url = url;
         reflection.hasOwnDocument = true;

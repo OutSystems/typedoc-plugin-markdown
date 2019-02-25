@@ -5,10 +5,6 @@ import { MarkdownPlugin } from './plugin';
 module.exports = (PluginHost: Application) => {
   const app = PluginHost.owner;
 
-  if (app.converter.hasComponent('markdown')) {
-    return;
-  }
-
   app.options.addDeclaration({
     component: 'markdown',
     help: 'Markdown Plugin: Suppress file sources from output.',
