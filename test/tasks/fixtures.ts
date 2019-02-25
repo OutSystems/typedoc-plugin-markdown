@@ -21,7 +21,7 @@ function replacer(key: any, value: any) {
   }
   return value;
 }
-fs.writeFileSync(`./test/out/fixtures/modules.json`, JSON.stringify(result, replacer));
+fs.writeFileSync(`./test/fixtures/modules.json`, JSON.stringify(result, replacer));
 
 // fs.writeFileSync(
 // `./test/out/fixtures/reflection.json`,

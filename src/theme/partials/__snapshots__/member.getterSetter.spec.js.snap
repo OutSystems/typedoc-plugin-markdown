@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[partial] member.gettersetter should compile getter 1`] = `
-"get readOnlyNameProperty [member.signature.title]
+"**get readOnlyNameProperty** [member.signature.title]
 
 [member.signature.body]"
 `;
 
 exports[`[partial] member.gettersetter should compile setter 1`] = `
-"set  [member.signature.title]
+"**set **  [member.signature.title]
 
 [member.signature.body]"
 `;

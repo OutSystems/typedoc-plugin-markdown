@@ -13,7 +13,7 @@ npm install --save-dev typedoc typedoc-plugin-markdown
 
 ## Usage
 
-The plugin provides an additional theme named 'markdown' that can be referenced by name:
+The plugin provides an additional 'markdown' theme that can be referenced by name:
 
 #### shell
 
@@ -29,33 +29,52 @@ $ node_modules/.bin/typedoc --theme markdown
 }
 ```
 
-## Arguments
+## Additional arguments
 
 The plugin exposes the following arguments in addition to TypeDoc's defaults:
 
-### --mdEngine `<github|bitbucket|gitbook>`
+- `--markdownFlavor <github|githubWiki|bitbucket|gitbook>`<br>
+  Specify the target markdown flavor: "github" (default), "githubWiki", "bitbucket" or "gitbook"
 
-The target markdown rendering engine:
+* `--flatten`<br>
+  Flattens output, merges classes and modules to single files.
 
-| Engine           | Description                                                         |
-| ---------------- | ------------------------------------------------------------------- |
-| github (default) | Optimized for GitHub Flavored markdown.                             |
-| bitbucket        | Renders markdown to support Bitbucket's internal anchor linking.    |
-| gitbook          | Generates additional SUMMARY.md file to enable a table of contents. |
+* `--omitSourceFiles`<br>
+  Suppress source file linking from output.
 
-### --mdHideSources
+- `--bitbucketRepo <path.to.repo>`<br>
+  For projects hosted on GitHub TypeDoc resolves source files. This argument allows targeting of source files hosted on other environments use the format `https://bitbucket.org/owner/repository_name`.
 
-Suppress source file linking from output.
+## Flavors
 
-### --mdSourceRepo `<path.to.repo>`(_Ignored on GitHub repositories_)
+### github (default)
 
-For projects hosted on GitHub TypeDoc resolves source files. This argument allows targeting of source files hosted on other environments.
+Optimized for GitHub Flavored markdown.
 
-For Bitbucket use: `https://bitbucket.org/owner/repository_name`.
+### githubWiki
+
+Generates stuff for githubWiki.
+
+### bitbucket
+
+Renders markdown to support Bitbucket's internal anchor linking.
+
+### gitbook
+
+Generates additional SUMMARY.md file to enable a table of contents.
 
 ## What does it look like?
 
 The markdown theme aims to provide the same functionality as the default theme with a simple breadcrumb navigation. To get an idea of the output view [some generic example output](https://github.com/tgreyuk/typedoc-plugin-markdown/tree/master/examples/out/README.md).
+
+## Version 2
+
+Version 2 has been re-written contains no dependancies.
+
+- Argument names have been made more verbose
+- Zero dependancies
+- Introdocues flatten and github wiki flavors.
+- Support for categorization.
 
 ## Acknowledgements
 

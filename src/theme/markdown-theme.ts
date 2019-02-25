@@ -12,7 +12,6 @@ import { DefaultTheme } from 'typedoc/dist/lib/output/themes/DefaultTheme';
 export class MarkdownTheme extends DefaultTheme {
   constructor(renderer: Renderer, basePath: string, options: any) {
     super(renderer, basePath);
-
     renderer.removeComponent('assets');
     renderer.removeComponent('javascript-index');
     renderer.removeComponent('toc');
@@ -44,8 +43,8 @@ export class MarkdownTheme extends DefaultTheme {
         MarkdownTheme.buildUrls(child, urlMappings);
       });
     }
-
-    if (this.application.options.getRawValues().mdEngine === 'gitbook') {
+    console.log(this.application.options.getValue('markdownFlavor'));
+    if (this.application.options.getRawValues().markdownFlavor === 'gitbook') {
       const navigationChildren = this.getNavigation(project).children;
       if (navigationChildren) {
         const navigation = navigationChildren.map(navigationItem => {
@@ -115,7 +114,7 @@ export class MarkdownTheme extends DefaultTheme {
 
       const anchorRef = anchor;
 
-      /* if (getMarkdownEngine() === 'bitbucket') {
+      /* if (this.application.options.getRawValues().mdEngine= 'bitbucket') {
         let anchorPrefix = '';
         if (reflection.kind === ReflectionKind.ObjectLiteral) {
           anchorPrefix += 'object-literal-';

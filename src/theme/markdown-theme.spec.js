@@ -3,7 +3,11 @@ const { MarkdownTheme } = require('../../dist/theme/markdown-theme');
 
 describe(`[theme] markdown theme`, () => {
   test('should compile', () => {
-    const app = new Application({ mode: 'Modules', module: 'CommonJS', target: 'ES5' });
+    const app = new Application({
+      mode: 'Modules',
+      module: 'CommonJS',
+      target: 'ES5',
+    });
     const theme = new MarkdownTheme(app.renderer, './dist/theme', {
       mode: 'Modules',
       module: 'CommonJS',

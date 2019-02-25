@@ -3,6 +3,7 @@ import { Component, ConverterComponent } from 'typedoc/dist/lib/converter/compon
 import { Converter } from 'typedoc/dist/lib/converter/converter';
 import { PageEvent } from 'typedoc/dist/lib/output/events';
 import { MarkdownTheme } from './theme/markdown-theme';
+import { formatContents } from './theme/utils';
 
 @Component({ name: 'markdown' })
 export class MarkdownPlugin extends ConverterComponent {
@@ -31,6 +32,6 @@ export class MarkdownPlugin extends ConverterComponent {
   }
 
   private onPageEnd(page: PageEvent) {
-    page.contents = page.contents ? page.contents.replace(/[\r?\n]{3,}/g, '\n\n') : '';
+    return page.contents ? formatContents(page.contents) : '';
   }
 }

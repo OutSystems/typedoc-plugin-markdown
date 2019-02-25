@@ -12,7 +12,7 @@ module.exports = (PluginHost: Application) => {
   app.options.addDeclaration({
     component: 'markdown',
     help: 'Markdown Plugin: Suppress file sources from output.',
-    name: 'mdHideSources',
+    name: 'omitSourceFiles',
     type: ParameterType.Boolean,
   });
 
@@ -21,15 +21,7 @@ module.exports = (PluginHost: Application) => {
     defaultValue: 'github',
     help:
       'Markdown Plugin: (github|bitbucket|gitbook) Specifies the markdown rendering engine.',
-    name: 'mdEngine',
-    type: ParameterType.String,
-  });
-
-  app.options.addDeclaration({
-    component: 'markdown',
-    defaultValue: 'github',
-    help: 'Markdown Plugin: Deprectated - use --mdEngine.',
-    name: 'mdFlavour',
+    name: 'markdownFlavor',
     type: ParameterType.String,
   });
 
@@ -37,7 +29,7 @@ module.exports = (PluginHost: Application) => {
     component: 'markdown',
     help:
       'The repository to use for source files (ignored unless markdownFlavour is set)',
-    name: 'mdSourceRepo',
+    name: 'bitbucketRepo',
     type: ParameterType.String,
   });
 

@@ -6,5 +6,5 @@ export function getAnchorRef(ref: string) {
 }
 
 export function formatContents(contents: string) {
-  return contents ? contents.replace(/[\r?\n]{3,}/g, '\n\n').trim() : '';
+  return contents.replace(/[\r?\n]{3,}/g, '\n\n').trim();
 }
