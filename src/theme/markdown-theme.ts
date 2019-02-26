@@ -28,62 +28,49 @@ export class MarkdownTheme extends DefaultTheme {
 
   public getUrls(project: ProjectReflection): UrlMapping[] {
     const urlMappings: UrlMapping[] = [];
-    const entryPoint = this.getEntryPoint(project);
 
-    urlMappings.push(
-      new UrlMapping(
-        'README.md',
-        Object.assign(entryPoint, { displayReadme: true }),
-        'index.hbs',
-      ),
-    );
+    const entryPoint = this.getEntryPoint(project);
+    const markdownFlavor = this.application.options.getRawValues().markdownFlavor;
+
+    MarkdownTheme.buildIndex(urlMappings, entryPoint);
 
     if (entryPoint.children) {
       entryPoint.children.forEach((child: DeclarationReflection) => {
-        MarkdownTheme.buildUrls(child, urlMappings);
+        MarkdownTheme.buildPages({
+          reflection: child,
+          urls: urlMappings,
+          markdownFlavor,
+        });
       });
     }
-    console.log(this.application.options.getValue('markdownFlavor'));
-    if (this.application.options.getRawValues().markdownFlavor === 'gitbook') {
-      const navigationChildren = this.getNavigation(project).children;
-      if (navigationChildren) {
-        const navigation = navigationChildren.map((navigationItem) => {
-          const dedicatedUrls = navigationItem.dedicatedUrls
-            ? navigationItem.dedicatedUrls.map((url) => {
-                return {
-                  title: () => {
-                    const urlMapping = urlMappings.find((item) => {
-                      return item.url === url;
-                    });
-                    return urlMapping ? urlMapping.model.name : null;
-                  },
-                  url,
-                };
-              })
-            : null;
 
-          return { ...navigationItem, dedicatedUrls };
-        });
-        urlMappings.push(
-          new UrlMapping('SUMMARY.md', { navigation }, 'summary.hbs'),
-        );
-      }
+    if (markdownFlavor === 'gitbook') {
+      MarkdownTheme.buildNavigation(urlMappings, this.getNavigation(project).children);
     }
     return urlMappings;
   }
 
-  public static buildUrls(
-    reflection: DeclarationReflection,
-    urls: UrlMapping[],
-  ): UrlMapping[] {
+  public static buildPages({
+    reflection,
+    urls,
+    markdownFlavor,
+  }: {
+    reflection: DeclarationReflection;
+    urls: UrlMapping[];
+    markdownFlavor: string;
+  }) {
     const mapping = DefaultTheme.getMapping(reflection);
 
     if (mapping) {
       if (!reflection.url || !DefaultTheme.URL_PREFIX.test(reflection.url)) {
-        const url = [
-          mapping.directory,
-          DefaultTheme.getUrl(reflection) + '.md',
-        ].join('/');
+        const url =
+          markdownFlavor === 'githubWiki'
+            ? [MarkdownTheme.getUrl(reflection, undefined, '-') + '.md'].join('/')
+            : [
+                mapping.directory,
+                MarkdownTheme.getUrl(reflection, undefined, '.') + '.md',
+              ].join('/');
+
         urls.push(new UrlMapping(url, reflection, mapping.template));
         reflection.url = url;
         reflection.hasOwnDocument = true;
@@ -92,10 +79,10 @@ export class MarkdownTheme extends DefaultTheme {
         for (const key in reflection.children) {
           if (reflection.children.hasOwnProperty(key)) {
             const child = reflection.children[key];
-            if (mapping.isLeaf) {
+            if (mapping.isLeaf || markdownFlavor === 'githubWiki') {
               MarkdownTheme.applyAnchorUrl(child, reflection);
             } else {
-              MarkdownTheme.buildUrls(child, urls);
+              MarkdownTheme.buildPages({ reflection: child, urls, markdownFlavor });
             }
           }
         }
@@ -105,6 +92,39 @@ export class MarkdownTheme extends DefaultTheme {
     }
 
     return urls;
+  }
+
+  public static buildIndex(urlMappings: any, entryPoint: any) {
+    urlMappings.push(
+      new UrlMapping(
+        'README.md',
+        Object.assign(entryPoint, { displayReadme: true }),
+        'index.hbs',
+      ),
+    );
+  }
+
+  public static buildNavigation(urlMappings: any, navigationChildren: any) {
+    if (navigationChildren) {
+      const navigation = navigationChildren.map((navigationItem: any) => {
+        const dedicatedUrls = navigationItem.dedicatedUrls
+          ? navigationItem.dedicatedUrls.map((url: string) => {
+              return {
+                title: () => {
+                  const urlMapping = urlMappings.find((item: any) => {
+                    return item.url === url;
+                  });
+                  return urlMapping ? urlMapping.model.name : null;
+                },
+                url,
+              };
+            })
+          : null;
+
+        return { ...navigationItem, dedicatedUrls };
+      });
+      urlMappings.push(new UrlMapping('SUMMARY.md', { navigation }, 'summary.hbs'));
+    }
   }
 
   public static applyAnchorUrl(reflection: Reflection, container: Reflection) {
