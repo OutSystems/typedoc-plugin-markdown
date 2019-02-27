@@ -22,6 +22,7 @@ export class MarkdownTheme extends DefaultTheme {
     const files = fs.readdirSync(outPath);
     return (
       fs.existsSync(path.join(outPath, 'README.md')) ||
+      fs.existsSync(path.join(outPath, 'Home.md')) ||
       (files.length === 1 && path.extname(files[0]) === '.md')
     );
   }
@@ -32,7 +33,7 @@ export class MarkdownTheme extends DefaultTheme {
     const entryPoint = this.getEntryPoint(project);
     const markdownFlavor = this.application.options.getRawValues().markdownFlavor;
 
-    MarkdownTheme.buildIndex(urlMappings, entryPoint);
+    MarkdownTheme.buildIndex(urlMappings, entryPoint, markdownFlavor);
 
     if (entryPoint.children) {
       entryPoint.children.forEach((child: DeclarationReflection) => {
@@ -43,11 +44,36 @@ export class MarkdownTheme extends DefaultTheme {
         });
       });
     }
-
+    console.log('FLAVOR', markdownFlavor);
     if (markdownFlavor === 'gitbook') {
       MarkdownTheme.buildNavigation(urlMappings, this.getNavigation(project).children);
     }
     return urlMappings;
+  }
+
+  public static getUrl(
+    reflection: Reflection,
+    relative?: Reflection,
+    separator: string = '.',
+  ): string {
+    let url =
+      markdownTheme === 'githubWiki'
+        ? reflection.getAlias().replace(/_/g, '')
+        : reflection.getAlias();
+    //  url =
+    // getMarkdownEngine() === 'githubWiki'
+    //  ? url.charAt(0).toUpperCase() + url.slice(1)
+    // : url;
+    if (
+      reflection.parent &&
+      reflection.parent !== relative &&
+      !(reflection.parent instanceof ProjectReflection)
+    ) {
+      url =
+        MarkdownTheme.getUrl(reflection.parent, relative, separator) + separator + url;
+    }
+
+    return url;
   }
 
   public static buildPages({
@@ -94,10 +120,10 @@ export class MarkdownTheme extends DefaultTheme {
     return urls;
   }
 
-  public static buildIndex(urlMappings: any, entryPoint: any) {
+  public static buildIndex(urlMappings: any, entryPoint: any, markdownFlavor: string) {
     urlMappings.push(
       new UrlMapping(
-        'README.md',
+        markdownFlavor === 'githubWiki' ? 'Home.md' : 'README.md',
         Object.assign(entryPoint, { displayReadme: true }),
         'index.hbs',
       ),
@@ -129,7 +155,7 @@ export class MarkdownTheme extends DefaultTheme {
 
   public static applyAnchorUrl(reflection: Reflection, container: Reflection) {
     if (!reflection.url || !DefaultTheme.URL_PREFIX.test(reflection.url)) {
-      let anchor = DefaultTheme.getUrl(reflection, container, '.');
+      let anchor = MarkdownTheme.getUrl(reflection, container, '.');
 
       if (reflection['isStatic']) {
         anchor = 'static-' + anchor;

@@ -28,17 +28,12 @@ function replacer(key: any, value: any) {
   }
   return value;
 }
-fs.writeFileSync(
-  `./test/fixtures/modules.json`,
-  JSON.stringify(result, replacer),
-);
-//fs.writeFileSync(`./test/fixtures/modules.json`, stringify(result));
+fs.writeFileSync(`./test/fixtures/modules.json`, JSON.stringify(result, replacer));
+//  fs.writeFileSync(`./test/fixtures/modules.json`, stringify(result));
 
 // fs.writeFileSync(
 // `./test/out/fixtures/reflection.json`,
 // JSON.stringify(result.findReflectionByName('functionWithArguments'), replacer),
 // );
 
-console.log(
-  `[typedoc-plugin-markdown(task:fixtures)] writing modules.json fixture`,
-);
+console.log(`[typedoc-plugin-markdown(task:fixtures)] writing modules.json fixture`);

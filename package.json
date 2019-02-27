@@ -8,17 +8,13 @@
   ],
   "scripts": {
     "copy:static": "copyfiles --up 1 ./src/**/*.hbs ./dist/",
-    "copy:plugin": "copyfiles package.json './dist/**/*' node_modules/typedoc-plugin-markdown/",
-    "examples": "rm -rf examples/out && typedoc ./examples/src --out ./examples/out --theme markdown --gitRevision master --readme none --media test/src/media/ --includes test/src/inc/",
     "lint": "tslint --project ./src/tsconfig.json",
     "build": "rm -rf dist && tsc -p ./src/tsconfig.json && npm run copy:static",
     "prepare": "npm run lint && npm run build && npm run test",
-    "pretest": "rm -rf node_modules/typedoc-plugin-markdown && npm run copy:plugin",
     "test": "jest",
     "fixtures": "ts-node ./test/tasks/fixtures.ts",
-    "compile": "npm run compile:markdown && npm run compile:html",
-    "compile:markdown": "npm run build && npm run pretest && typedoc ./test/src -out ./test/out/markdown/modules --options ./test/options.json",
-    "compile:html": "typedoc ./test/src -out ./test/out/html/modules --theme default  --readme none --options ./test/options.json"
+    "examples": "npm run build && ts-node ./test/tasks/examples.ts",
+    "defaulttheme": "typedoc ./test/src -out ./test/out/html/modules --theme default  --readme none --options ./test/options.json"
   },
   "author": "Thomas Grey",
   "license": "MIT",

@@ -15,7 +15,7 @@ describe(`[theme] github flavor (default)`, () => {
     const project = app.convert(app.expandInputFiles(['./test/src']));
     const theme = app.renderer.theme;
     const urlMappings = theme.getUrls(project);
-    const urls = urlMappings.map((urlMapping) => {
+    const urls = urlMappings.map(urlMapping => {
       return urlMapping.url;
     });
     expect(urls).toMatchSnapshot();
@@ -29,13 +29,14 @@ describe(`[theme] githubWiki`, () => {
       module: 'CommonJS',
       target: 'ES5',
       theme: 'markdown',
+
       plugin: path.join(__dirname, '../../dist/index'),
     });
-    app.options.setValue('githubWiki', 'gitbook');
+    app.options.setValue('markdownFlavor', 'githubWiki');
     const project = app.convert(app.expandInputFiles(['./test/src']));
     const theme = app.renderer.theme;
     const urlMappings = theme.getUrls(project);
-    const urls = urlMappings.map((urlMapping) => {
+    const urls = urlMappings.map(urlMapping => {
       return urlMapping.url;
     });
     expect(urls).toMatchSnapshot();
@@ -54,7 +55,7 @@ describe(`[theme] gitbook`, () => {
     const project = app.convert(app.expandInputFiles(['./test/src']));
     const theme = app.renderer.theme;
     const urlMappings = theme.getUrls(project);
-    const urls = urlMappings.map((urlMapping) => {
+    const urls = urlMappings.map(urlMapping => {
       return urlMapping.url;
     });
     expect(urls).toMatchSnapshot();
