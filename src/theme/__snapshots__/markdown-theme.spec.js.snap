@@ -113,17 +113,17 @@ Array [
 
 exports[`[theme] githubWiki should generate URLs 1`] = `
 Array [
-  "README.md",
-  "_access_.md",
-  "_classes_.md",
-  "_default_export_.md",
-  "_destructuring_.md",
-  "_doc_comments_.md",
-  "_enumerations_.md",
-  "_flattened_.md",
-  "_functions_.md",
-  "_generics_.md",
-  "_interfaces_.md",
-  "_variables_.md",
+  "Home.md",
+  "Access.md",
+  "Classes.md",
+  "Defaultexport.md",
+  "Destructuring.md",
+  "Doccomments.md",
+  "Enumerations.md",
+  "Flattened.md",
+  "Functions.md",
+  "Generics.md",
+  "Interfaces.md",
+  "Variables.md",
 ]
 `;

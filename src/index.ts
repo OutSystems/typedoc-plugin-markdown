@@ -23,6 +23,13 @@ module.exports = (PluginHost: Application) => {
 
   app.options.addDeclaration({
     component: 'markdown',
+    help: 'Markdown Plugin: Flattens output',
+    name: 'flatten',
+    type: ParameterType.String,
+  });
+
+  app.options.addDeclaration({
+    component: 'markdown',
     help:
       'The repository to use for source files (ignored unless markdownFlavour is set)',
     name: 'bitbucketRepo',

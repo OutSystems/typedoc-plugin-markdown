@@ -2,20 +2,28 @@ import * as fs from 'fs';
 import * as path from 'path';
 import {
   DeclarationReflection,
+  DefaultTheme,
   ProjectReflection,
   Reflection,
-} from 'typedoc/dist/lib/models/reflections/index';
-import { UrlMapping } from 'typedoc/dist/lib/output/models/UrlMapping';
-import { Renderer } from 'typedoc/dist/lib/output/renderer';
-import { DefaultTheme } from 'typedoc/dist/lib/output/themes/DefaultTheme';
+  ReflectionKind,
+  Renderer,
+  UrlMapping,
+} from 'typedoc';
+import { getAnchorRef } from './utils';
 
 export class MarkdownTheme extends DefaultTheme {
+  public options: {
+    flatten: boolean;
+    markdownFlavor: string;
+  };
+
   constructor(renderer: Renderer, basePath: string, options: any) {
     super(renderer, basePath);
     renderer.removeComponent('assets');
     renderer.removeComponent('javascript-index');
     renderer.removeComponent('toc');
     renderer.removeComponent('pretty-print');
+    this.options = this.application.options.getRawValues();
   }
 
   public isOutputDirectory(outPath: string): boolean {
@@ -31,71 +39,57 @@ export class MarkdownTheme extends DefaultTheme {
     const urlMappings: UrlMapping[] = [];
 
     const entryPoint = this.getEntryPoint(project);
-    const markdownFlavor = this.application.options.getRawValues().markdownFlavor;
 
-    MarkdownTheme.buildIndex(urlMappings, entryPoint, markdownFlavor);
+    this.buildIndex(urlMappings, entryPoint);
 
     if (entryPoint.children) {
       entryPoint.children.forEach((child: DeclarationReflection) => {
-        MarkdownTheme.buildPages({
-          reflection: child,
-          urls: urlMappings,
-          markdownFlavor,
-        });
+        this.buildPages(child, urlMappings);
       });
     }
-    console.log('FLAVOR', markdownFlavor);
-    if (markdownFlavor === 'gitbook') {
-      MarkdownTheme.buildNavigation(urlMappings, this.getNavigation(project).children);
+
+    if (this.options.markdownFlavor === 'gitbook') {
+      this.buildNavigation(urlMappings, this.getNavigation(project).children);
     }
+
     return urlMappings;
   }
 
-  public static getUrl(
+  public getUrl(
     reflection: Reflection,
     relative?: Reflection,
     separator: string = '.',
   ): string {
     let url =
-      markdownTheme === 'githubWiki'
+      this.options.markdownFlavor === 'githubWiki'
         ? reflection.getAlias().replace(/_/g, '')
         : reflection.getAlias();
-    //  url =
-    // getMarkdownEngine() === 'githubWiki'
-    //  ? url.charAt(0).toUpperCase() + url.slice(1)
-    // : url;
+    url =
+      this.options.markdownFlavor === 'githubWiki'
+        ? url.charAt(0).toUpperCase() + url.slice(1)
+        : url;
     if (
       reflection.parent &&
       reflection.parent !== relative &&
       !(reflection.parent instanceof ProjectReflection)
     ) {
-      url =
-        MarkdownTheme.getUrl(reflection.parent, relative, separator) + separator + url;
+      url = this.getUrl(reflection.parent, relative, separator) + separator + url;
     }
 
     return url;
   }
 
-  public static buildPages({
-    reflection,
-    urls,
-    markdownFlavor,
-  }: {
-    reflection: DeclarationReflection;
-    urls: UrlMapping[];
-    markdownFlavor: string;
-  }) {
+  public buildPages(reflection: DeclarationReflection, urls: UrlMapping[]) {
     const mapping = DefaultTheme.getMapping(reflection);
 
     if (mapping) {
       if (!reflection.url || !DefaultTheme.URL_PREFIX.test(reflection.url)) {
         const url =
-          markdownFlavor === 'githubWiki'
-            ? [MarkdownTheme.getUrl(reflection, undefined, '-') + '.md'].join('/')
-            : [
-                mapping.directory,
-                MarkdownTheme.getUrl(reflection, undefined, '.') + '.md',
-              ].join('/');
+          this.options.markdownFlavor === 'githubWiki'
+            ? [this.getUrl(reflection, undefined, '-') + '.md'].join('/')
+            : [mapping.directory, this.getUrl(reflection, undefined, '.') + '.md'].join(
+                '/',
+              );
 
         urls.push(new UrlMapping(url, reflection, mapping.template));
         reflection.url = url;
@@ -105,32 +99,32 @@ export class MarkdownTheme extends DefaultTheme {
         for (const key in reflection.children) {
           if (reflection.children.hasOwnProperty(key)) {
             const child = reflection.children[key];
-            if (mapping.isLeaf || markdownFlavor === 'githubWiki') {
-              MarkdownTheme.applyAnchorUrl(child, reflection);
+            if (mapping.isLeaf || this.options.markdownFlavor === 'githubWiki') {
+              this.applyAnchorUrl(child, reflection);
             } else {
-              MarkdownTheme.buildPages({ reflection: child, urls, markdownFlavor });
+              this.buildPages(child, urls);
             }
           }
         }
       }
     } else if (reflection.parent) {
-      MarkdownTheme.applyAnchorUrl(reflection, reflection.parent);
+      this.applyAnchorUrl(reflection, reflection.parent);
     }
 
     return urls;
   }
 
-  public static buildIndex(urlMappings: any, entryPoint: any, markdownFlavor: string) {
+  public buildIndex(urlMappings: any, entryPoint: any) {
     urlMappings.push(
       new UrlMapping(
-        markdownFlavor === 'githubWiki' ? 'Home.md' : 'README.md',
+        this.options.markdownFlavor === 'githubWiki' ? 'Home.md' : 'README.md',
         Object.assign(entryPoint, { displayReadme: true }),
         'index.hbs',
       ),
     );
   }
 
-  public static buildNavigation(urlMappings: any, navigationChildren: any) {
+  public buildNavigation(urlMappings: any, navigationChildren: any) {
     if (navigationChildren) {
       const navigation = navigationChildren.map((navigationItem: any) => {
         const dedicatedUrls = navigationItem.dedicatedUrls
@@ -153,7 +147,7 @@ export class MarkdownTheme extends DefaultTheme {
     }
   }
 
-  public static applyAnchorUrl(reflection: Reflection, container: Reflection) {
+  public applyAnchorUrl(reflection: Reflection, container: Reflection) {
     if (!reflection.url || !DefaultTheme.URL_PREFIX.test(reflection.url)) {
       let anchor = MarkdownTheme.getUrl(reflection, container, '.');
 
@@ -161,9 +155,9 @@ export class MarkdownTheme extends DefaultTheme {
         anchor = 'static-' + anchor;
       }
 
-      const anchorRef = anchor;
+      let anchorRef = anchor;
 
-      /* if (this.application.options.getRawValues().mdEngine= 'bitbucket') {
+      if (this.options.markdownFlavor === 'bitbucket') {
         let anchorPrefix = '';
         if (reflection.kind === ReflectionKind.ObjectLiteral) {
           anchorPrefix += 'object-literal-';
@@ -174,7 +168,7 @@ export class MarkdownTheme extends DefaultTheme {
         const prefixRef = getAnchorRef(anchorPrefix);
         const reflectionRef = getAnchorRef(reflection.name);
         anchorRef = `markdown-header-${prefixRef}${reflectionRef}`;
-      } */
+      }
 
       reflection.url =
         (container.url !== undefined ? container.url : '') + '#' + anchorRef;
@@ -184,7 +178,7 @@ export class MarkdownTheme extends DefaultTheme {
 
     reflection.traverse((child: any) => {
       if (child instanceof DeclarationReflection) {
-        MarkdownTheme.applyAnchorUrl(child, container);
+        this.applyAnchorUrl(child, container);
       }
     });
   }
