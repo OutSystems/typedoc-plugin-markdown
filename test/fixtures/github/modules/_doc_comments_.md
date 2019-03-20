@@ -23,7 +23,7 @@
 
 **● commentsWithTags**: *`boolean`* = false
 
-*Defined in [doc-comments.ts:27](https://github.com/tgreyuk/typedoc-plugin-markdown/blob/master/test/src/doc-comments.ts#L27)*
+*Defined in [doc-comments.ts:27](https://github.com/OutSystems/typedoc-plugin-markdown/blob/master/test/src/doc-comments.ts#L27)*
 
 *__name__*: AbstractMetadataModule
 
@@ -48,7 +48,7 @@ ___
 
 **● generalComments**: *`boolean`* = false
 
-*Defined in [doc-comments.ts:9](https://github.com/tgreyuk/typedoc-plugin-markdown/blob/master/test/src/doc-comments.ts#L9)*
+*Defined in [doc-comments.ts:9](https://github.com/OutSystems/typedoc-plugin-markdown/blob/master/test/src/doc-comments.ts#L9)*
 
 Additionally you can link to other classes, members or functions using double square brackets.
 
@@ -64,7 +64,7 @@ ___
 
 ▸ **foo**(): `void`
 
-*Defined in [doc-comments.ts:36](https://github.com/tgreyuk/typedoc-plugin-markdown/blob/master/test/src/doc-comments.ts#L36)*
+*Defined in [doc-comments.ts:36](https://github.com/OutSystems/typedoc-plugin-markdown/blob/master/test/src/doc-comments.ts#L36)*
 
 Some deprecation
 
