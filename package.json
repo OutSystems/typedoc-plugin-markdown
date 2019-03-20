@@ -13,7 +13,6 @@
     "html": "typedoc ./test/src --out test/out/html",
     "lint": "tslint --project ./src/tsconfig.json",
     "build": "rm -rf dist && tsc -p ./src/tsconfig.json && npm run copy:static",
-    "prepare": "npm run lint && npm run build && npm run test",
     "pretest": "rm -rf test/out && rm -rf node_modules/typedoc-plugin-markdown && npm run copy:plugin",
     "test": "jest"
   },
