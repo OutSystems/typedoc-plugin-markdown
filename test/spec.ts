@@ -22,6 +22,7 @@ describe(`Compile 'github' flavoured markdown`, () => {
       'test/src/inc/',
     ],
     {
+      shell: true,
       stdio: 'inherit',
     },
   );
@@ -54,6 +55,7 @@ describe(`Compile 'bitbucket' flavoured markdown`, () => {
       'https://bitbucket.org/owner/repository_name',
     ],
     {
+      shell: true,
       stdio: 'inherit',
     },
   );
@@ -79,6 +81,7 @@ describe(`Compile 'gitbook' flavoured markdown`, () => {
       'test/src/inc/',
     ],
     {
+      shell: true,
       stdio: 'inherit',
     },
   );
