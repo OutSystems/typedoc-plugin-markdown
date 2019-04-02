@@ -1,4 +1,14 @@
-{{> header}}
+---
+tags: mobile-runtime
+{{~#if model.comment ~}}{{~#if model.comment.shortText ~}}
+{{getNewLine}}summary: {{{ removeNewLines model.comment.shortText }}}
+{{~/if~}}{{~/if}}
+---
+
+{{! header }}
+
+# {{model.name}}
+{{getNewLine}}
 {{~#if model.displayReadme ~}}
 {{#getMarkdownFromHtml}}{{#markdown}}{{{model.readme}}}{{/markdown}}{{/getMarkdownFromHtml}}
 {{~/if~}}
@@ -43,7 +53,7 @@
 {{~#if model.indexSignature}}
 {{#getHeadingLevel '##'}}{{/getHeadingLevel}} Indexable
 
-\[{{~#each model.indexSignature.parameters}}{{name}}: {{#with type}}{{>type}}{{/with}}{{/each}}\]:&nbsp;
+\[{{~#each model.indexSignature.parameters}}{{name}}: {{#with type}}{{>type}}{{/with}}{{/each}}\]:&#160;
 {{~#with model.indexSignature.type}}{{>type}}{{/with}}
 {{~#with model.indexSignature}}
 {{> comment}}

@@ -1,4 +1,3 @@
-
 {{#unless hideSources}}
 {{ compileSources this}}
 {{/unless}}
@@ -6,14 +5,16 @@
 {{> comment}}
 
 {{#if typeParameters}}
-**Type parameters:**
+**Type parameters**
 {{> typeParameters}}
 {{/if}}
 {{> member.parameters}}
+
 {{#if type}}
 
-**Returns:** {{#with type}}{{>type}}{{/with}}
+Returns: {{#with type}}{{>type}}{{/with}}
+
 {{#if comment.returns}}
-{{{comment.returns}}}
+{{{normalizeNewLines comment.returns}}}
 {{/if}}
 {{/if}}

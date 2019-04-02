@@ -1,21 +1,26 @@
-{{#compact}}
-{{getMemberSymbol kindString}}{{#unless hideName}}**{{{name}}}**{{/unless}}
+{{#compact}}{{! Not always called inside code blocks - use mono=true parameter when used inside code }}
+{{! Note: &nbsp; is replaced by 'compact' helper with a space *after* trimming the line }}
+{{#unless hideName}}{{{name}}}{{/unless}}
 {{#if typeParameters}}
-<
+{{#if mono}}<{{else}}&#60;{{/if}}
 {{#each typeParameters}}
-{{#if @index}}, {{/if}}
-`{{name}}`
+{{#if @index}},&nbsp;{{/if}}
+{{name}}
 {{/each}}
->
+{{#if mono}}>{{else}}&#62;{{/if}}
 {{/if}}
 (
 {{#each parameters}}
-{{#if @index}},&nbsp;{{/if}}
+{{#if @index}},&nbsp;
+{{/if}}
 {{#if flags.isRest}}...{{/if}}
-{{name}}
-{{#if flags.isOptional}}?{{/if}}
-{{#if defaultValue}}?{{/if}}
-: *{{#with type}}{{>type}}{{/with}}*
+{{#if flags.isOptional}} [ {{/if}}
+{{#if defaultValue}}     [ {{/if}}
+{{name}}:&nbsp;
+{{#with type}}{{>type}}{{/with}}
+{{#if defaultValue}}&nbsp;= {{defaultValue}}{{/if}}
+{{#if flags.isOptional}}] {{/if}}
+{{#if defaultValue}}    ] {{/if}}
 {{/each}}
 )
 {{#if type}}

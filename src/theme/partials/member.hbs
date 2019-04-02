@@ -1,7 +1,5 @@
-{{{getAnchor anchor}}}
-
 {{#if name}}
-{{#getMemberHeadingLevel this}}{{/getMemberHeadingLevel}} {{#each flags}}`<{{this}}>`{{/each}} {{name}}
+{{#getMemberHeadingLevel this}}{{/getMemberHeadingLevel}}{{#each flags}} &lt;{{this}}&gt;{{/each}} {{name}}
 {{/if}}
 
 {{#if signatures}}
@@ -19,5 +17,3 @@
 {{/unless}}
 {{/each}}
 {{/each}}
-
-___

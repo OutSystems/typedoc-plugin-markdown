@@ -1,19 +1,34 @@
-{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Index
+{{#getHeadingLevel '##'}}{{/getHeadingLevel}} Summary
 
 {{#if groups}}
 {{#each groups}}
 {{#ifGroupContainesVisibleItems this }}
-### {{title}}
 
+<table markdown="1">
+<thead>
+<tr>
+<th colspan="2">{{title}}</th>
+</tr>
+</thead>
+<tbody>
 {{#each children}}
 {{#ifDisplayIndexItem this }}
-* [{{{name}}}]({{relativeURL url}})
+<tr>
+<td>[{{#if name}}{{name}}{{else}}<em>{{kindString}}</em>{{/if}}]({{relativeURL url}})</td>
+<td>
+{{#if comment.shortText}}
+{{{comment.shortText}}}
+{{else}}
+{{#if signatures}}
+{{{signatures.0.comment.shortText}}}
+{{/if}}
+{{/if}}</td>
+</tr>
 {{/ifDisplayIndexItem}}
 {{/each}}
+</tbody>
+</table>
 {{getNewLine}}
 {{/ifGroupContainesVisibleItems}}
 {{/each}}
 {{/if}}
-
----
-

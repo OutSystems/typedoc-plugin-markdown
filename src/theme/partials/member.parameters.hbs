@@ -1,18 +1,17 @@
 {{#if parameters}}
-**Parameters:**
+Parameters:
 
 {{#ifHasTypeDeclarations parameters}}
 
 {{#each parameters}}
 
-**{{#each flags}}`{{this}}` {{/each}}{{#if flags.isRest}}...{{/if}}{{{name}}}: {{#with type}}{{>type}}{{/with}}**
+* {{#each flags}}({{this}}) {{/each}}{{#if flags.isRest}}...{{/if}}**{{{name}}}**: {{#with type}}{{>type}}{{/with}}
 
 {{> comment}}
 
 {{#if type.declaration.children}}
-{{getParametersTableHeaders type.declaration.children}}
 {{#each type.declaration.children}}
-| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}} |{{/if}}{{/compact}}
+* {{#compact}}{{#each flags}}({{this}}) {{/each}}**{{ name }}**: {{#with type}}{{>type}}{{/with}}{{#if defaultValue}}(default: {{defaultValue}}) {{/if}}{{#if comment}}<br/> {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}}{{/if}}{{/compact}}
 {{/each}}
 {{/if}}
 
@@ -21,9 +20,8 @@
 
 {{else}}
 
-{{getParametersTableHeaders parameters}}
 {{#each parameters}}
-| {{#compact}}{{#each flags}}`{{this}}` {{/each}}{{ name }} | {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} | {{defaultValue}} | {{else}} | {{/if}}{{#if comment}} {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}} |{{/if}}{{/compact}}
+* {{#compact}}{{#each flags}}({{this}}) {{/each}}**{{ name }}**: {{#with type}}{{>type}}{{/with}}{{#if defaultValue}} (default: {{defaultValue}}) {{/if}}{{#if comment}}<br/> {{#getMarkdownFromHtml}}{{#markdown}}{{ getStrippedComment comment }}{{/markdown}}{{/getMarkdownFromHtml}}{{/if}}{{/compact}}
 {{/each}}
 {{getNewLine}}{{getNewLine}}
 
