@@ -137,6 +137,8 @@ export class MarkdownTheme extends DefaultTheme {
     const urlMappings: UrlMapping[] = [];
     const entryPoint = this.getEntryPoint(project);
 
+    entryPoint.url = 'README.md';
+
     // write home file with additional context
     urlMappings.push(
       new UrlMapping(
@@ -146,6 +148,7 @@ export class MarkdownTheme extends DefaultTheme {
           ...{
             displayReadme: this.application.options.getValue('readme') !== 'none',
             isIndex: true,
+            url: 'README.md',
           },
         },
         'reflection.hbs',
