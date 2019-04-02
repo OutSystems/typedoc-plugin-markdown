@@ -1,3 +1,4 @@
+import { EOL } from 'os';
 /**
  * Displaying parameters table headers
  * @param parameters
@@ -33,7 +34,7 @@ export function getParametersTableHeaders(parameters: any) {
   headers.forEach((header) => {
     md += ` ${header} |`;
   });
-  md += '\n';
+  md += EOL;
   md += '|';
   headers.forEach(() => {
     md += ` ------ |`;

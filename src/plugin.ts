@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { EOL } from 'os';
 import { Component, ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import { Context } from 'typedoc/dist/lib/converter/context';
 import { Converter } from 'typedoc/dist/lib/converter/converter';
@@ -53,7 +54,8 @@ export class MarkdownPlugin extends ConverterComponent {
    * Remove duplicate lines to tidy up output
    */
   private onPageEnd(page: PageEvent) {
-    page.contents = page.contents ? page.contents.replace(/\n{3,}/g, '\n\n') : '';
+  	var newlineRegex = (process.platform === 'win32' ? /(\r\n){3,}/g : /\n{3,}/g);
+    page.contents = page.contents ? page.contents.replace(newlineRegex, EOL + EOL) : '';
   }
 
   /**
