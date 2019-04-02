@@ -2,10 +2,19 @@ import { spawnSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 
+//import TypeDoc from 'typedoc';
+
 const compiledDirRoot = 'test/out';
 const expectedDirRoot = 'test/fixtures';
 
 describe(`Compile 'github' flavoured markdown`, () => {
+  // const app = new TypeDoc.Application({
+  //   mode:   'Modules',
+  //   logger: 'none',
+  //   target: 'ES5',
+  //   module: 'CommonJS',
+  //   experimentalDecorators: true
+  // });
   spawnSync(
     'typedoc',
     [
