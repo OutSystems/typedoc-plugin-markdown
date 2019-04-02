@@ -9,7 +9,6 @@
     "moduleResolution": "node",
     "noEmitHelpers": false,
     "removeComments": true,
-    "sourceMap": false,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es2015",
     "lib": ["es2016", "dom"],
