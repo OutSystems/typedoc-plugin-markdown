@@ -1,0 +1,19 @@
+{{#if name}}
+{{#getMemberHeadingLevel this}}{{/getMemberHeadingLevel}}{{#each flags}} &lt;{{this}}&gt;{{/each}} {{name}}
+{{/if}}
+
+{{#if signatures}}
+{{> member.signatures}}
+{{else}}{{#if hasGetterOrSetter}}
+{{> member.getterSetter}}
+{{else}}
+{{> member.declaration}}
+{{/if}}{{/if}}
+
+{{#each groups}}
+{{#each children}}
+{{#unless hasOwnDocument}}
+{{> member}}
+{{/unless}}
+{{/each}}
+{{/each}}

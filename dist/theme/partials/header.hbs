@@ -1,0 +1,10 @@
+{{!-- {{ title }} --}}
+{{~#ifDisplayMainTitle this ~}}
+# {{{ model.name }}}
+{{/ifDisplayMainTitle}}
+{{#compact}}
+{{~#with model~}}
+{{~#unless displayIndexTitle~}}
+{{~/unless}}
+{{~/with}}
+{{/compact}}
