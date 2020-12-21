@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../dist",
     "rootDir": "./",
+    "sourceMap": false,
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "strictNullChecks": true

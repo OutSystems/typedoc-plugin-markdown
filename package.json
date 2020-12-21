@@ -7,8 +7,8 @@
     "dist/"
   ],
   "scripts": {
-    "copy:static": "copyfiles --up 1 ./src/**/*.hbs ./dist/",
-    "copy:plugin": "copyfiles package.json \"./dist/**/*\" node_modules/typedoc-plugin-markdown/",
+    "copy:static": "copyfiles --up 1 \"./src/**/*.hbs\" ./dist/",
+    "copy:plugin": "copyfiles package.json \"./src/**/*.ts\" \"./dist/**/*\" node_modules/typedoc-plugin-markdown/",
     "examples": "rm -rf examples/out && typedoc ./examples/src --out ./examples/out --theme markdown --gitRevision master --readme none --media test/src/media/ --includes test/src/inc/",
     "html": "typedoc ./test/src --out test/out/html",
     "lint": "tslint --project ./src/tsconfig.json",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tgreyuk/typedoc-plugin-markdown.git"
+    "url": "git+https://github.com/OutSystems/typedoc-plugin-markdown.git"
   },
   "keywords": [
     "markdown",
@@ -48,5 +48,8 @@
   },
   "dependencies": {
     "turndown": "^5.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
