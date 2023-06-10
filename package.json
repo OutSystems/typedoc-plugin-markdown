@@ -13,9 +13,10 @@
     "html": "typedoc ./test/src --out test/out/html",
     "lint": "tslint --project ./src/tsconfig.json",
     "build": "rm -rf dist && tsc -p ./src/tsconfig.json && npm run copy:static",
-    "prepare": "npm run lint && npm run build && npm run test",
+    "prepare": "npm run snyk-protect && npm run lint && npm run build && npm run test",
     "pretest": "rm -rf test/out && rm -rf node_modules/typedoc-plugin-markdown && npm run copy:plugin",
-    "test": "jest"
+    "test": "jest",
+    "snyk-protect": "snyk-protect"
   },
   "author": "Thomas Grey",
   "license": "MIT",
@@ -48,6 +49,8 @@
     "typescript": "3.2.x"
   },
   "dependencies": {
-    "turndown": "^5.0.3"
-  }
+    "turndown": "^5.0.3",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
